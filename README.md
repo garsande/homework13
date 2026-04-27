@@ -262,3 +262,9 @@ Then submit the GitHub repository link as instructed.
 - [Python Downloads](https://www.python.org/downloads/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [GitHub SSH Setup Guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+
+## Run FastAPI app locally
+In WSL/VS Code Terminal:
+```bash
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
