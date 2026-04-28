@@ -71,6 +71,22 @@ def test_user_registration(base_url: str):
     assert data["is_active"] is True
     assert data["is_verified"] is False
 
+def test_user_registration_email_error(base_url: str):
+    url = f"{base_url}/auth/register"
+    payload = {
+        "first_name": "Alice",
+        "last_name": "Smith",
+        "email": "example.com",
+        "username": "alicesmith",
+        "password": "SecurePass123!",
+        "confirm_password": "SecurePass123!"
+    }
+    response = requests.post(url, json=payload)
+    data = response.json()
+    reason = data['detail'][0]['ctx']['reason']
+    assert response.status_code == 422, f"Expected 422 but got {response.status_code}. Response: {response.text}"
+    assert reason == "An email address must have an @-sign."
+   
 def test_user_login(base_url: str):
     reg_url = f"{base_url}/auth/register"
     login_url = f"{base_url}/auth/login"
